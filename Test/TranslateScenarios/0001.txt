@@ -1,0 +1,41 @@
+-- translate a cons definition of list
+import "core:Data.Array:v1.0.0" as Array
+import "core:Data.String:v1.0.0" as String
+
+type List a =
+	Nil
+|	Cons a (List a)
+-- js
+const Array = mrequire("core:Data.Array:v1.0.0");
+const String = mrequire("core:Data.String:v1.0.0");
+
+
+function ListState(content) {
+    this.content = content;
+}
+
+
+const Nil = new ListState([0]);
+
+
+function Cons(p1) {
+    return p2 => new ListState([1, p1, p2]);
+}
+
+
+ListState.prototype.reduce = function (fNil) {
+    return fCons => {
+        switch (this.content[0]) {
+            case 0: return fNil();
+            case 1: return fCons(this.content[1])(this.content[2]);
+        }
+    };
+};
+
+
+ListState.prototype.toString = function () {
+    return this.reduce(() => "Nil")(p1 => p2 => `(Cons ${p1.toString()} ${p2.toString()})`);
+};
+
+
+module.exports = {ListState, Nil, Cons};
