@@ -26,7 +26,7 @@ Unit.newSuite("Parser Suite - parseImport")
     .case("given 'import \"core:Data.String:1.0.0\" as String' should return Tuple(\"core:Data.String:1.0.0\", \"String\")", () => {
         Assert.deepEqual(
             astResult(Parser.parseImport(Lexer.fromString('import "core:Data.String:1.0.0" as String'))),
-            Tuple("core:Data.String:1.0.0")("String"));
+            {reference: "core:Data.String:1.0.0", name: "String"});
     });
 
 

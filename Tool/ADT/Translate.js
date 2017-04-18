@@ -7,7 +7,7 @@ function translate(adtAST) {
     const imports = translateImports(adtAST.second);
     const adt = translateADT(adtAST.first);
 
-    return Result.Okay(`${imports}\n${adt.first}\nmodule.exports = {${adt.second}};\n`);
+    return Result.Okay(`${imports}${imports.length === 0 ? "" : "\n\n"}${adt.first}\nmodule.exports = {${adt.second}};\n`);
 }
 
 
@@ -16,14 +16,14 @@ function translateImports(importsAST) {
 
     let result = "";
     for (let lp = 0; lp < imports.length; lp += 1) {
-        if (imports[lp].first.indexOf(":") > -1) {
-            result = result + `const ${imports[lp].second} = mrequire("${imports[lp].first}");\n`;
+        if (imports[lp].reference.indexOf(":") > -1) {
+            result = result + `const ${imports[lp].name} = mrequire("${imports[lp].reference}");\n`;
         } else {
-            result = result + `const ${imports[lp].second} = require("${imports[lp].first}");\n`;
+            result = result + `const ${imports[lp].name} = require("${imports[lp].reference}");\n`;
         }
     }
 
-    return result + "\n";
+    return result;
 }
 
 

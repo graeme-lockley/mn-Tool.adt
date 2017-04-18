@@ -75,9 +75,7 @@ const parseImport =
         symbolValue(Lexer.Tokens.CONSTANT_STRING),
         C.symbol(Lexer.Tokens.AS),
         symbolValue(Lexer.Tokens.UPPER_ID)
-    ])(t => Tuple(
-        t.at(1).withDefault(""))(
-        t.at(3).withDefault("")));
+    ])(t => ({name: t.at(3).withDefault(""), reference: t.at(1).withDefault("")}));
 
 
 const parse =
