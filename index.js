@@ -9,7 +9,7 @@ const compile = sourceName => targetName =>
     SyncFileSystem.readFile(sourceName)
         .andThen(content => Parser.parse(Lexer.fromString(content)))
         .andThen(ast => Translate(ast.first))
-        .andThen(writeFile(targetName));
+        .andThen(SyncFileSystem.writeFile(targetName));
 
 
 module.exports = compile;
