@@ -6,8 +6,6 @@ const Translate = require("./Tool/ADT/Translate");
 
 
 function compile(sourceName, targetName) {
-    console.log(`Compiling ${sourceName} using ADT`);
-
     return loadFile(sourceName)
         .andThen(content => Parser.parse(Lexer.fromString(content)))
         .andThen(ast => Translate(ast.first))
